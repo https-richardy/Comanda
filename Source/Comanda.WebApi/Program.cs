@@ -18,9 +18,6 @@ internal static class Program
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
 
-        builder.Services.AddBearerAuthentication();
-        builder.Services.AddServices(configuration);
-
         var app = builder.Build();
 
         app.BuildHttpPipeline(environment);
