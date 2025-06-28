@@ -1,0 +1,53 @@
+services:
+  comanda.infrastructure.mongo.database:
+    container_name: "comanda.database"
+    image: mongo:latest
+    env_file:
+      - .env
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - comanda.infrastructure.mongo.database:/data/db
+
+  comanda.infrastructure.keycloak.database:
+    container_name: "comanda.keycloak.database"
+    image: postgres:latest
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - comanda.infrastructure.keycloak.database:/var/lib/postgresql/data
+
+  comanda.infrastructure.keycloak:
+    container_name: "comanda.keycloak"
+    image: quay.io/keycloak/keycloak:latest
+    env_file:
+      - .env
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL_HOST: comanda.infrastructure.keycloak.database
+      KC_DB_URL_DATABASE: comanda.infrastructure.keycloak
+      KC_DB_USERNAME: ${POSTGRES_USER}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      KC_HTTP_ENABLED: true
+    ports:
+      - "8080:8080"
+    depends_on:
+      - comanda.infrastructure.keycloak.database
+    command:
+      - start
+      - --hostname-strict=false
+
+volumes:
+  comanda.infrastructure.mongo.database:
+  comanda.infrastructure.keycloak.database:
