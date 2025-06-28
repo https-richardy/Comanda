@@ -6,10 +6,6 @@ internal static class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        Console.WriteLine("Starting Comanda Web API...");
-        Console.WriteLine($"MONGO CONNECTIONSTRING: {Environment.GetEnvironmentVariable("Mongo__ConnectionString")}");
-        Console.WriteLine($"MONGO DATABASE: {Environment.GetEnvironmentVariable("Mongo__DatabaseName")}");
-
         var environment = builder.Environment;
         var configuration = builder.Configuration;
 
@@ -17,6 +13,9 @@ internal static class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
+
+        builder.Services.AddBearerAuthentication();
+        builder.Services.AddServices(configuration, environment);
 
         var app = builder.Build();
 

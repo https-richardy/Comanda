@@ -13,9 +13,9 @@ public static class AuthenticationExtension
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    RoleClaimType = ClaimTypes.Role, // veja que alterei para ClaimTypes.Role
+                    RoleClaimType = ClaimTypes.Role,
                     NameClaimType = "preferred_username",
-                    ValidateAudience = false // <- desativa validação do audience
+                    ValidateAudience = false
                 };
 
                 options.Events = new JwtBearerEvents
@@ -26,7 +26,6 @@ public static class AuthenticationExtension
                         if (identity is null)
                             return Task.CompletedTask;
 
-                        // Mapear roles do realm_access.roles
                         var realmAccessClaim = context.Principal?.FindFirst("realm_access")?.Value;
                         if (!string.IsNullOrWhiteSpace(realmAccessClaim))
                         {
@@ -44,7 +43,6 @@ public static class AuthenticationExtension
                             }
                         }
 
-                        // Mapear roles do resource_access.comanda-webapi.roles
                         var resourceAccessClaim = context.Principal?.FindFirst("resource_access")?.Value;
                         if (!string.IsNullOrWhiteSpace(resourceAccessClaim))
                         {
