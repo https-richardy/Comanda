@@ -1,15 +1,4 @@
 services:
-  comanda.infrastructure.mongo.database:
-    container_name: "comanda.database"
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
-    volumes:
-      - comanda.infrastructure.mongo.database:/data/db
-
   comanda.infrastructure.keycloak.database:
     container_name: "comanda.keycloak.database"
     image: postgres:latest
@@ -43,5 +32,4 @@ services:
       - --hostname-strict=false
 
 volumes:
-  comanda.infrastructure.mongo.database:
   comanda.infrastructure.keycloak.database:
