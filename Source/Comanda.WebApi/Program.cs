@@ -9,6 +9,8 @@ internal static class Program
         var environment = builder.Environment;
         var configuration = builder.Configuration;
 
+        builder.Configuration.AddEnvironmentVariables();
+
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
 
