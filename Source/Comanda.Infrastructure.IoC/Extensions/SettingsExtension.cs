@@ -1,4 +1,3 @@
-
 namespace Comanda.Infrastructure.IoC.Extensions;
 
 [ExcludeFromCodeCoverage]
