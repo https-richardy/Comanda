@@ -20,6 +20,8 @@ public static class ServicesExtension
         services.AddMediator();
         services.AddValidators();
         services.AddApplicationServices();
+
+        services.AddCorsConfiguration();
         services.AddHttpContextAccessor();
     }
 }
