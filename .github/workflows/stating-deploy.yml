@@ -1,10 +1,9 @@
-name: pipeline build .NET, run tests, optional deploy to staging environment
+name: pipeline build .NET, run tests, deploy to staging environment
 
 on:
   push:
     branches:
       - development
-  workflow_dispatch:
 
 jobs:
   build:
@@ -36,25 +35,8 @@ jobs:
       - name: run tests
         run: dotnet test --no-build --verbosity normal
 
-  approval:
-    needs: test
-    runs-on: ubuntu-latest
-    outputs:
-      deploy: ${{ steps.ask.outputs.deploy }}
-    steps:
-      - id: ask
-        run: |
-          echo "Do you want to deploy to staging environment? (yes/no)"
-          read ans
-          if [[ "$ans" == "yes" ]]; then
-            echo "::set-output name=deploy::true"
-          else
-            echo "::set-output name=deploy::false"
-          fi
-
   docker-build-push:
-    needs: approval
-    if: needs.approval.outputs.deploy == 'true'
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -74,7 +56,6 @@ jobs:
 
   deploy:
     needs: docker-build-push
-    if: needs.approval.outputs.deploy == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: login to azure
