@@ -1,6 +1,3 @@
-using Comanda.Infrastructure.Constants;
-using Microsoft.AspNetCore.Authorization;
-
 namespace Comanda.WebApi.Controllers;
 
 [ApiController]
