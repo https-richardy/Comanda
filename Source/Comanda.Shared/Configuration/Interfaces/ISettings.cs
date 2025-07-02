@@ -4,4 +4,5 @@ public interface ISettings
 {
     MongoSettings Mongo { get; }
     KeycloakSettings Keycloak { get; }
+    StripeSettings Stripe { get; }
 }
