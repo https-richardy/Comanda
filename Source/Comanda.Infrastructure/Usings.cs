@@ -36,3 +36,5 @@ global using Comanda.Infrastructure.Serializers;
 global using MongoDB.Driver;
 global using MongoDB.Bson;
 global using MongoDB.Bson.Serialization;
+
+global using Stripe.Checkout;
