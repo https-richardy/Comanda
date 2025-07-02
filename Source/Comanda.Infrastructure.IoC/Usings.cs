@@ -38,4 +38,4 @@ global using MongoDB.Driver;
 global using FluentValidation;
 global using FluentValidation.AspNetCore;
 
-
+global using Stripe;

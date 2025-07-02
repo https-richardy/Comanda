@@ -5,6 +5,9 @@ public static class ExternalGatewaysExtension
 {
     public static void AddExternalGateways(this IServiceCollection services, ISettings settings)
     {
+        StripeConfiguration.ApiKey = settings.Stripe.SecretKey;
+
+        services.AddScoped<ISubscriptionGateway, SubscriptionGateway>();
         services.AddScoped<IAuthenticationGateway, KeycloakAuthenticationGateway>();
         services.AddHttpClient<IAuthenticationGateway, KeycloakAuthenticationGateway>(client =>
         {
