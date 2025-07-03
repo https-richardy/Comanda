@@ -2,7 +2,7 @@ namespace Comanda.Infrastructure.Gateways;
 
 public sealed class SubscriptionGateway(ISettings settings) : ISubscriptionGateway
 {
-    public async Task<Result<SubscriptionRedirect>> SubscribePlanAsync(User user)
+    public async Task<Result<SubscriptionRedirect>> CreateSubscriptionSessionAsync(User user)
     {
         var price = settings.Stripe.PlanId;
         var subscription = new SessionLineItemOptions

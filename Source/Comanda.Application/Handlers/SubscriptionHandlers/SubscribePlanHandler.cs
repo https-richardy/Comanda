@@ -11,7 +11,7 @@ public sealed class SubscribePlanHandler(
     )
     {
         var user = await userProvider.GetUserAsync();
-        var result = await subscriptionGateway.SubscribePlanAsync(user);
+        var result = await subscriptionGateway.CreateSubscriptionSessionAsync(user);
 
         return Result<SubscriptionRedirect>.Success(result.Data!);
     }
