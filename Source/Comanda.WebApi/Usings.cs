@@ -16,8 +16,13 @@ global using Comanda.WebApi.Extensions;
 global using Comanda.Infrastructure.Constants;
 global using Comanda.Infrastructure.IoC.Extensions;
 global using Comanda.Application.Payloads;
+global using Comanda.Application.Notifications;
+global using Comanda.Shared.Configuration;
 
 /* global usings for third-party namespaces here */
 
 global using HealthChecks.UI.Client;
 global using MediatR;
+
+global using Stripe;
+global using Stripe.Checkout;
